@@ -3424,13 +3424,13 @@ void NurbsSurface<T,D>::isoCurveV(T v, NurbsCurve<T,D>& c) const {
 }
 //-------------------------------------------------------------------
 /*!
-  \brief Decompose the surface into Bézier patches
+  \brief Decompose the surface into Bï¿½zier patches
 
-  This function decomposes the curve into an array of homogenous Bézier 
+  This function decomposes the curve into an array of homogenous Bï¿½zier 
   patches.
 
-  \param S  an array of Bézier segments
-  \return The number of Bézier strips in the u direction.
+  \param S  an array of Bï¿½zier segments
+  \return The number of Bï¿½zier strips in the u direction.
 
   \author Philippe Lavoie
   \date 8 October, 1997
@@ -4728,7 +4728,7 @@ int NurbsSurface<T,N>::writeOOGL(const char* filename,
   T u,v;
   for (u = fBu; u<fEu+fDu/2; u+=fDu)
     for (v = fBv; v<fEv+fDv/2; v+=fDv){
-      Sp = pointAt(u,v);
+      Sp = this->pointAt(u,v);
       Np = normal(u,v);
       Np = (norm(Np)!=0)?Np.unitLength():Point_nD<T,N>(0.0);
       fout << "\t" << Sp << "\t " << Np << endl;
@@ -4842,7 +4842,7 @@ int NurbsSurface<T,N>::writeDisplayQUADMESH(const char* filename, int iNu,int iN
     for (u = 0; u<1-fDu/2; u+=fDu){
       // The change in sign and the swap of y and z coordinates is
       // for conversion to MINC format.
-      Sp = -(T)1.0 * pointAt(u,v) ;
+      Sp = -(T)1.0 * this->pointAt(u,v) ;
       fout << Sp.x() << ' ' << Sp.z() << ' ' << Sp.y() << endl;
     }
 
@@ -5314,7 +5314,7 @@ int NurbsSurface<T,N>::writeVTU(const char* filename, T step_u, T step_v) {
 //  for (v = V[degV]+step_v; v < v_max+step_v/2.0; v += step_v)
   for (u = U[degU]; u < u_max+step_u/2.0; u += step_u) {
     for (v = V[degV]; v < v_max+step_v/2.0; v += step_v) {
-      Sp = pointAt(u,v);
+      Sp = this->pointAt(u,v);
 	  fout << "  " << Sp.x() << " " << Sp.y() << " " << Sp.z() << "\n";
     }
   }
@@ -5368,13 +5368,13 @@ int NurbsSurface<T,N>::writeVTU(const char* filename, T step_u, T step_v) {
 }
 //-----------------------------------------------------------------------------
 /*!
-  \brief Decompose the surface into Bézier strips in v direction
+  \brief Decompose the surface into Bï¿½zier strips in v direction
 
-  This function decomposes the curve into an array of homogenous Bézier 
+  This function decomposes the curve into an array of homogenous Bï¿½zier 
   patches.
 
-  \param S    an array of Bézier segments
-  \return     The number of Bézier strips in the v direction.
+  \param S    an array of Bï¿½zier segments
+  \return     The number of Bï¿½zier strips in the v direction.
 
   Warning! This function is for R&D only, not fully tested.
 
@@ -5561,7 +5561,7 @@ bool NurbsSurface<T,N>::projectToU(const Point_nD<T,N>& p, T guess_u, T fixed_v,
     t++;
 
 //    s = pointAt(u, v);  // Implemented in ParaSurface, from which NurbsSurface is inherited
-    c = pointAt(u, v);
+    c = this->pointAt(u, v);
 	deriveAt(u, v, 2, skl);  // perhaps need to re-write deriveAt for single direction, e.g. deriveAtU, etc.
 
     if(t > maxTry)
@@ -5657,7 +5657,7 @@ bool NurbsSurface<T,N>::projectToV(const Point_nD<T,N>& p, T fixed_u, T guess_v,
   while(1) {
     t++;
 
-    c = pointAt(u, v);  // Implemented in ParaSurface, from which NurbsSurface is inherited
+    c = this->pointAt(u, v);  // Implemented in ParaSurface, from which NurbsSurface is inherited
 	deriveAt(u, v, 2, skl);
 
     if(t > maxTry) {
@@ -5757,7 +5757,7 @@ bool NurbsSurface<T,N>::projectToUsingModifiedNewton(const Point_nD<T,N>& p, T g
       return false;
     }
 
-    s = pointAt(u, v);  // Implemented in ParaSurface, from which NurbsSurface is inherited
+    s = this->pointAt(u, v);  // Implemented in ParaSurface, from which NurbsSurface is inherited
 	
 	rf = s-p;
     s1 = norm2(rf);

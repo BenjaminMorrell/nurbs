@@ -2408,7 +2408,7 @@ bool NurbsCurve<T,N>::projectTo(const Point_nD<T,N>& p, T guess, T& u,
       return false;
     }
 	
-    c = pointAt(u) ;
+    c = this->pointAt(u) ;
     deriveAt(u,2,Cd) ;
 	
     cd = Cd[1] ;
@@ -2511,7 +2511,7 @@ bool NurbsCurve<T,N>::projectTo(const Point_nD<T,N>& p, T guess, T& u,
       return false;
     }
 	
-    c = pointAt(u) ;
+    c = this->pointAt(u) ;
     deriveAt(u,2,Cd) ;
 	
     cd = Cd[1] ;
@@ -4035,14 +4035,14 @@ void nurbsDersBasisFuns(int n,T u, int span,  int deg, const Vector<T>& U, Matri
 
 
 /*!
-  \brief Decompose the curve into Bézier segments
+  \brief Decompose the curve into Bï¿½zier segments
 
-  This function decomposes the curve into an array of 4D Bézier 
+  This function decomposes the curve into an array of 4D Bï¿½zier 
   segments.
 
-  \param c  an array of Bézier segments
+  \param c  an array of Bï¿½zier segments
 
-  \warning The end Bézier segments will not be valid if the NURBS curve 
+  \warning The end Bï¿½zier segments will not be valid if the NURBS curve 
            is not clamped.
 
   \author Philippe Lavoie
@@ -5368,7 +5368,7 @@ BasicList<Point_nD<T,N> > NurbsCurve<T,N>::tesselate(T tolerance,BasicList<T> *u
 
     for(i=0;i<n;++i){
       u = (U[U.n()-deg_-1]-U[deg_])*T(i)/T(n-1) + U[deg_] ;
-      list.add(pointAt(u)) ;
+      list.add(this->pointAt(u)) ;
       if(uk)
 	uk->add(u) ;
     }
@@ -6818,12 +6818,12 @@ void NurbsCurve<T,D>::globalInterpClosedH(const Vector< HPoint_nD<T,D> >& Qw,
 }
 
 /*!
-   \brief decompose the closed curve into Bézier segments
+   \brief decompose the closed curve into Bï¿½zier segments
    
-   This function decomposes a closed curve into an array of Bézier 
+   This function decomposes a closed curve into an array of Bï¿½zier 
    segments.
 
-   \param c an array of Bézier segments
+   \param c an array of Bï¿½zier segments
 
    \author Alejandro Frangi
    \date 30 July 1998
