@@ -1963,7 +1963,7 @@ Point_nD<T,N> NurbsSurface<T,N>::normal(T u, T v) const {
 
   deriveAt(u,v,1,ders) ;
 
-  return crossProduct(ders(1,0),ders(0,1)) ;
+  return crossProduct(ders(1,0),ders(0,1)).unitLength() ;
 }
 //-------------------------------------------------------------------
 /*! 
